@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IC 的個人研究室</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23C48A5A'/%3E%3Ctext x='50' y='54' text-anchor='middle' dominant-baseline='central' font-family='serif' font-weight='bold' font-size='58' fill='white'%3EIC%3C/text%3E%3C/svg%3E">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap');
 
@@ -15,7 +15,7 @@
     --text-light: #6B6460;
     --text-muted: #A69E97;
     --border: #EDE6DD;
-    --accent: #C48A5A;
+    --accent: #B8782E;
     --accent-light: #F5E6D3;
     --shadow: 0 2px 8px rgba(44, 40, 37, 0.05), 0 8px 28px rgba(44, 40, 37, 0.04);
     --radius: 20px;
@@ -35,29 +35,29 @@
   .hero {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(160deg, #3B2F26 0%, #5C4A3A 40%, #7A6555 100%);
+    background: #2A1F14;
     color: white;
     text-align: center;
-    padding: 64px 24px 56px;
+    padding: 80px 24px 64px;
     border-radius: 0 0 36px 36px;
   }
   /* Placeholder for cover image - will be replaced */
   .hero-cover {
     position: absolute;
     inset: 0;
-    background: linear-gradient(160deg, #3B2F26 0%, #5C4A3A 40%, #7A6555 100%);
+    background: #2A1F14;
     z-index: 0;
   }
   .hero-cover img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.45;
+    opacity: 0.5;
   }
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(59,47,38,0.3) 0%, rgba(59,47,38,0.7) 100%);
+    background: linear-gradient(180deg, rgba(42,31,20,0.2) 0%, rgba(42,31,20,0.75) 100%);
     z-index: 1;
   }
   .hero-content {
@@ -233,8 +233,7 @@
 <!-- ===== Hero ===== -->
 <div class="hero">
   <div class="hero-cover">
-    <!-- 封面圖：有圖時取消下方註解 -->
-    <!-- <img src="cover.jpg" alt="IC的個人研究室"> -->
+    <img src="cover.jpg" alt="IC的個人研究室">
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
