@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC 的個人研究室</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap');
+
+  :root {
+    --bg: #FAF6F1;
+    --card-bg: #FFFFFF;
+    --text: #2C2825;
+    --text-light: #6B6460;
+    --text-muted: #A69E97;
+    --border: #EDE6DD;
+    --accent: #C48A5A;
+    --accent-light: #F5E6D3;
+    --shadow: 0 2px 8px rgba(44, 40, 37, 0.05), 0 8px 28px rgba(44, 40, 37, 0.04);
+    --radius: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #3B2F26 0%, #5C4A3A 40%, #7A6555 100%);
+    color: white;
+    text-align: center;
+    padding: 64px 24px 56px;
+    border-radius: 0 0 36px 36px;
+  }
+  /* Placeholder for cover image - will be replaced */
+  .hero-cover {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #3B2F26 0%, #5C4A3A 40%, #7A6555 100%);
+    z-index: 0;
+  }
+  .hero-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.45;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(59,47,38,0.3) 0%, rgba(59,47,38,0.7) 100%);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.6em;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    margin-bottom: 8px;
+  }
+  .hero .subtitle {
+    font-size: 1em;
+    opacity: 0.85;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  .hero .counter-bar {
+    margin-top: 16px;
+    font-size: 0.8em;
+    opacity: 0.7;
+  }
+  .hero .counter-bar span { font-weight: 700; }
+
+  /* ===== Filter Tabs ===== */
+  .filter-bar {
+    max-width: 900px;
+    margin: -18px auto 24px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 3;
+  }
+  .filter-inner {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .filter-btn {
+    padding: 6px 18px;
+    border-radius: 30px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-light);
+    font-size: 0.88em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* ===== Project Grid ===== */
+  .grid {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(44,40,37,0.08), 0 16px 40px rgba(44,40,37,0.06);
+  }
+
+  .card-thumb {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.2em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-body {
+    padding: 18px 20px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-body h3 {
+    font-size: 1.08em;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .card-body p {
+    font-size: 0.88em;
+    color: var(--text-light);
+    flex: 1;
+    margin-bottom: 12px;
+  }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: 700;
+  }
+  .card-views {
+    font-size: 0.78em;
+    color: var(--text-muted);
+  }
+  .card-views span { font-weight: 700; }
+
+  /* Tag colors */
+  .tag-人物研究 { background: #E8F4FD; color: #1E6B9A; }
+  .tag-IP分析 { background: #FFF2F5; color: #9D3050; }
+  .tag-寶可夢 { background: #FEF9E7; color: #8B6914; }
+  .tag-教育 { background: #E8F8F0; color: #1A7A4C; }
+  .tag-投資 { background: #F3EEFB; color: #5B3A8C; }
+
+  /* Card thumb backgrounds */
+  .thumb-人物研究 { background: linear-gradient(135deg, #D4E9F7, #A8D1F0); }
+  .thumb-IP分析 { background: linear-gradient(135deg, #FCE4EC, #F8BBD0); }
+  .thumb-寶可夢 { background: linear-gradient(135deg, #FFF8E1, #FFE082); }
+  .thumb-教育 { background: linear-gradient(135deg, #E0F2F1, #A5D6A7); }
+  .thumb-投資 { background: linear-gradient(135deg, #EDE7F6, #B39DDB); }
+
+  /* ===== Footer ===== */
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+    font-size: 0.8em;
+    border-top: 1px solid var(--border);
+    max-width: 900px;
+    margin: 0 auto 40px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 600px) {
+    .hero { padding: 48px 16px 42px; }
+    .hero h1 { font-size: 2em; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="hero-cover">
+    <!-- 封面圖：有圖時取消下方註解 -->
+    <!-- <img src="cover.jpg" alt="IC的個人研究室"> -->
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>IC 的個人研究室</h1>
+    <p class="subtitle">好奇一件事 → 研究它 → 做成網頁。這裡收錄所有成果。</p>
+    <div class="counter-bar">
+      <span id="counter">0</span>次瀏覽
+    </div>
+  </div>
+</div>
+
+<!-- ===== Filter ===== -->
+<nav class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="人物研究">人物研究</button>
+    <button class="filter-btn" data-filter="IP分析">IP 分析</button>
+    <button class="filter-btn" data-filter="教育">教育</button>
+    <button class="filter-btn" data-filter="投資">投資</button>
+    <button class="filter-btn" data-filter="寶可夢">寶可夢</button>
+  </div>
+</nav>
+
+<!-- ===== Grid ===== -->
+<div class="grid" id="projectGrid">
+
+  <a href="https://ichentsaitw.github.io/sam-altman-story/" target="_blank" class="project-card" data-tag="人物研究">
+    <div class="card-thumb thumb-人物研究">👤</div>
+    <div class="card-body">
+      <h3>Sam Altman 背景研究</h3>
+      <p>搭配《The Optimist》閱讀，整理 Sam Altman 的人生時間軸、創業歷程與爭議事件。</p>
+      <div class="card-meta">
+        <span class="card-tag tag-人物研究">人物研究</span>
+        <span class="card-views"><span class="site-count" data-site="sam-altman-story">—</span>次瀏覽</span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ichentsaitw.github.io/shahimi-guide/" target="_blank" class="project-card" data-tag="IP分析">
+    <div class="card-thumb thumb-IP分析">🦈</div>
+    <div class="card-body">
+      <h3>胖鯊魚鯊西米｜情報整理</h3>
+      <p>台灣 LINE 貼圖 IP 的商業分析。從分潤機制到收入天花板，給國中生的研究入門。</p>
+      <div class="card-meta">
+        <span class="card-tag tag-IP分析">IP 分析</span>
+        <span class="card-views"><span class="site-count" data-site="shahimi-guide">—</span>次瀏覽</span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ichentsaitw.github.io/denryu/" target="_blank" class="project-card" data-tag="寶可夢">
+    <div class="card-thumb thumb-寶可夢">⚡</div>
+    <div class="card-body">
+      <h3>蔥盟寶可夢圖鑑</h3>
+      <p>電龍、小火龍、傑尼龜、胖丁的互動式圖鑑網頁。蔥盟知名寶可夢大集合。</p>
+      <div class="card-meta">
+        <span class="card-tag tag-寶可夢">寶可夢</span>
+        <span class="card-views"><span class="site-count" data-site="denryu">—</span>次瀏覽</span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ichentsaitw.github.io/us-ee-university-guide/" target="_blank" class="project-card" data-tag="教育">
+    <div class="card-thumb thumb-教育">🎓</div>
+    <div class="card-body">
+      <h3>美國 EE 大學指南</h3>
+      <p>美國電機工程（Electrical Engineering）大學的研究與整理。</p>
+      <div class="card-meta">
+        <span class="card-tag tag-教育">教育</span>
+        <span class="card-views"><span class="site-count" data-site="us-ee-university-guide">—</span>次瀏覽</span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ichentsaitw.github.io/blacklark-etf/" target="_blank" class="project-card" data-tag="投資">
+    <div class="card-thumb thumb-投資">📈</div>
+    <div class="card-body">
+      <h3>ETF 研究筆記</h3>
+      <p>ETF 投資相關資訊的整理與分析。</p>
+      <div class="card-meta">
+        <span class="card-tag tag-投資">投資</span>
+        <span class="card-views"><span class="site-count" data-site="blacklark-etf">—</span>次瀏覽</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<footer>
+  IC 的個人研究室｜好奇心驅動，Claude 協作產出<br>
+  最後更新：2026 年 3 月
+</footer>
+
+<!-- ===== Scripts ===== -->
+<script>
+// Supabase 計數器
+const SUPABASE_URL = 'https://dypkogwrsqtonefaodiv.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5cGtvZ3dyc3F0b25lZmFvZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0MDg2NzMsImV4cCI6MjA4OTk4NDY3M30.Qqh4V7_yumS5TnrV5Eora6VrC3T1bjbdTl7Pd2s-Tw4';
+
+// 本頁計數
+fetch(`${SUPABASE_URL}/rest/v1/rpc/increment_page_view`, {
+  method: 'POST',
+  headers: {
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ site: 'ic-lab' })
+})
+  .then(r => r.json())
+  .then(count => {
+    document.getElementById('counter').textContent = count;
+  })
+  .catch(() => {});
+
+// 各子站瀏覽數（讀取，不 increment）
+fetch(`${SUPABASE_URL}/rest/v1/page_views?select=site_id,count`, {
+  headers: {
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`
+  }
+})
+  .then(r => r.json())
+  .then(rows => {
+    // 加總每個 site 的所有日期
+    const totals = {};
+    rows.forEach(r => {
+      totals[r.site_id] = (totals[r.site_id] || 0) + r.count;
+    });
+    document.querySelectorAll('.site-count').forEach(el => {
+      const site = el.dataset.site;
+      if (totals[site]) el.textContent = totals[site];
+    });
+  })
+  .catch(() => {});
+
+// 篩選功能
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.project-card').forEach(card => {
+      if (filter === 'all' || card.dataset.tag === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
